@@ -1,12 +1,17 @@
 import React from 'react'
-import './App.css'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import { Login } from './pages/Login'
+import withApollo from './lib/withApollo'
 
 function App() {
   return (
-      <div className="App">
-        hello world
-      </div>
+    <Router>
+      <Switch>
+        <Route component={ Login } path="/login"/>
+      </Switch>
+    </Router>
   )
 }
 
-export default App
+export default withApollo(App)
