@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Login } from './pages/Login'
 import withApollo from './lib/withApollo'
+import { GithubCodePage } from './pages/GithubCodePage'
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route component={ Login } path="/login"/>
+        <Route exact component={ Login } path="/login"/>
+        <Route component={ GithubCodePage } path="/login/oauth2/code/github"/>
       </Switch>
     </Router>
   )

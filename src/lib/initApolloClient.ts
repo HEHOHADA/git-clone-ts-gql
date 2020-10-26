@@ -1,6 +1,12 @@
-// eslint-disable-next-line max-len
-import { ApolloClient, ApolloReducerConfig, createHttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloReducerConfig,
+  createHttpLink,
+  InMemoryCache,
+  NormalizedCacheObject
+} from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { getTokenValue } from './localStorage'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 export const GITHUB_LINK_OPTIONS = {uri: 'https://api.github.com/graphql'}
@@ -15,7 +21,7 @@ function create(
     return {
       headers: {
         ...headers,
-        authorization: `Bearer ${ process.env.REACT_APP_GITHUB_ACCESS_TOKEN }`,
+        authorization: `Bearer ${ getTokenValue() }`,
       },
     }
   })
