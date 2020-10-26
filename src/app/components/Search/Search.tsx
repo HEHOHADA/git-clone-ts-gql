@@ -5,8 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
-import UserSearchResult from "../components/UserSearchResult";
-import RepositorySearchResult from "../components/RepositorySearchResult";
+import UserSearchResult from "./UserSearchResult";
+import RepositorySearchResult from "./RepositorySearchResult";
 
 export default function SearchForm() {
   const classes = useStyles();
