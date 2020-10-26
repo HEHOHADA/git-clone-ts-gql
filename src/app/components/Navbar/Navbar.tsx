@@ -6,7 +6,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 
-const github = require("../static/github.png");
+const github = require("../../static/github.png");
 
 export default function SearchAppBar() {
   const classes = useStyles();
@@ -17,19 +17,10 @@ export default function SearchAppBar() {
           <Typography className={classes.title}>
             <img src={github} className={classes.icon} alt="" />
           </Typography>
-
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
           </div>
         </Toolbar>
       </AppBar>
@@ -40,15 +31,16 @@ export default function SearchAppBar() {
 const useStyles = makeStyles((theme: any) => ({
   navbar: {
     backgroundColor: "#2b3137",
-    marginBottom: "8%",
+    marginBottom: "3%",
   },
   icon: {
     width: "150px",
     display: "flex",
+    marginLeft: "5%",
   },
   title: {
     flexGrow: 1,
-    display: "none",
+
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -60,18 +52,11 @@ const useStyles = makeStyles((theme: any) => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
-    },
+    padding: theme.spacing(0.6, 0.7),
+    height: "100%",
+    marginRight: "7%",
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

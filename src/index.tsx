@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import Login from "./app/pages/login";
+import Login from "./app/pages/Login";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
