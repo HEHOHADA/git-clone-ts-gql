@@ -9,7 +9,9 @@ import {
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import { githubClientKeys } from "../../utils/config";
 
+const { clientId } = githubClientKeys;
 export default function Login() {
   const classes = useStyles();
   return (
@@ -33,7 +35,9 @@ export default function Login() {
           <Button className={classes.button}>Login</Button>
         </Grid>
       </Grid>
-      <a href="https://github.com/login/oauth/authorize?client_id=507bcc6256587963e456&redirect_uri=http://localhost:3000/login">
+      <a
+        href={`https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=http://localhost:3000/login`}
+      >
         <h3 className={classes.loginForm}>
           Sign in with GitHub <GitHubIcon />
         </h3>
