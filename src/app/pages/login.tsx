@@ -1,13 +1,14 @@
 import React from "react";
-import Nav from "../components/Navbar/Navbar";
-import Log from "../components/Login/Login";
+import Layout from "../components/layout/MainLayout";
 import { makeStyles } from "@material-ui/core";
+import Log from "../components/Login/Login";
 export default function Login() {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <Nav></Nav>
-      <Log></Log>
+      <Layout>
+        <Log />
+      </Layout>
     </div>
   );
 }

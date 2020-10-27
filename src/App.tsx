@@ -1,12 +1,15 @@
-import React from 'react'
-import './App.css'
-
-function App() {
+import React from "react";
+import Login from "./app/pages/Login";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+export default function App() {
   return (
-      <div className="App">
-        hello world
-      </div>
-  )
+    <div>
+      <BrowserRouter>
+        <Redirect from="/" to="/login" />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    </div>
+  );
 }
-
-export default App
