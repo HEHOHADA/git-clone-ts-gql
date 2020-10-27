@@ -1,12 +1,15 @@
-import React from 'react'
-import './App.css'
-
-function App() {
+import React from "react";
+import Login from "./app/pages/login";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import PrivateRoute from "./app/routes/PrivateRoute";
+export default function App() {
+  const isAuth = false;
   return (
-      <div className="App">
-        hello world
-      </div>
-  )
+      <BrowserRouter>
+        <Redirect from="/" to="/login" />
+        <Switch>
+          <PrivateRoute isAuth={isAuth} path="/login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+  );
 }
-
-export default App
