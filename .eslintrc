@@ -1,25 +1,51 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "es6": true,
     "browser": true,
     "node": true
   },
   "extends": [
+    "google",
+    "prettier/react",
     "eslint:recommended",
-    "google"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
     "semi": "off",
     "no-unused-vars": "off",
-    "object-curly-spacing": "off",
     "quote-props": "off",
-    "max-len": ["error", { "code": 100 }],
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ],
     "arrow-parens": "off",
     "comma-dangle": "off",
     "linebreak-style": "off",
     "indent": "off",
     "require-jsdoc": "off",
-    "semi-style": "off"
+    "semi-style": "off",
+    "object-curly-spacing": ["error", "always", { "objectsInObjects": false }],
+    "@typescript-eslint/camelcase": "off",
+    "member-delimiter-style": 0,
+    "react/prop-types": "off",
+    "@typescript-eslint/member-delimiter-style": 0,
+    "react/display-name": 0,
+    "implicit-arrow-linebreak": 0,
+    "@typescript-eslint/explicit-function-return-type": 0
   }
 }

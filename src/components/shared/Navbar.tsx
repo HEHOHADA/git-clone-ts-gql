@@ -18,31 +18,31 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: theme.spacing(2)
     },
     title: {
       display: 'none',
       [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+        display: 'block'
+      }
     },
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.white, 0.25)
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(3),
-        width: 'auto',
-      },
+        width: 'auto'
+      }
     },
     searchIcon: {
       padding: theme.spacing(0, 2),
@@ -51,10 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'center'
     },
     inputRoot: {
-      color: 'inherit',
+      color: 'inherit'
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 0),
@@ -63,29 +63,29 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
+        width: '20ch'
+      }
     },
     sectionDesktop: {
       display: 'none',
       [theme.breakpoints.up('md')]: {
-        display: 'flex',
-      },
+        display: 'flex'
+      }
     },
     sectionMobile: {
       display: 'flex',
       [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
-  }),
+        display: 'none'
+      }
+    }
+  })
 )
 
 type PropsType = {
   isAuth?: boolean
 }
 
-export const Navbar: FC<PropsType> = ({isAuth}) => {
+export const Navbar: FC<PropsType> = () => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -114,10 +114,10 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
   const renderMenu = (
     <Menu
       anchorEl={ anchorEl }
-      anchorOrigin={ {vertical: 'top', horizontal: 'right'} }
+      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
       id={ menuId }
       keepMounted
-      transformOrigin={ {vertical: 'top', horizontal: 'right'} }
+      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
       open={ isMenuOpen }
       onClose={ handleMenuClose }
     >
@@ -130,17 +130,17 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
   const renderMobileMenu = (
     <Menu
       anchorEl={ mobileMoreAnchorEl }
-      anchorOrigin={ {vertical: 'top', horizontal: 'right'} }
+      anchorOrigin={ { vertical: 'top', horizontal: 'right' } }
       id={ mobileMenuId }
       keepMounted
-      transformOrigin={ {vertical: 'top', horizontal: 'right'} }
+      transformOrigin={ { vertical: 'top', horizontal: 'right' } }
       open={ isMobileMenuOpen }
       onClose={ handleMobileMenuClose }
     >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={ 4 } color="secondary">
-            <MailIcon/>
+            <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -148,7 +148,7 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={ 11 } color="secondary">
-            <NotificationsIcon/>
+            <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -160,7 +160,7 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle/>
+          <AccountCircle />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -177,34 +177,34 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
           <Typography className={ classes.title } variant="h6" noWrap>
             Git-clone
           </Typography>
           <div className={ classes.search }>
             <div className={ classes.searchIcon }>
-              <SearchIcon/>
+              <SearchIcon />
             </div>
             <InputBase
               placeholder="Search…"
               classes={ {
                 root: classes.inputRoot,
-                input: classes.inputInput,
+                input: classes.inputInput
               } }
-              inputProps={ {'aria-label': 'search'} }
+              inputProps={ { 'aria-label': 'search' } }
             />
           </div>
-          <div className={ classes.grow }/>
+          <div className={ classes.grow } />
           <div className={ classes.sectionDesktop }>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={ 4 } color="secondary">
-                <MailIcon/>
+                <MailIcon />
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={ 17 } color="secondary">
-                <NotificationsIcon/>
+                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
@@ -215,7 +215,7 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
               onClick={ handleProfileMenuOpen }
               color="inherit"
             >
-              <AccountCircle/>
+              <AccountCircle />
             </IconButton>
           </div>
           <div className={ classes.sectionMobile }>
@@ -226,7 +226,7 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
               onClick={ handleMobileMenuOpen }
               color="inherit"
             >
-              <MoreIcon/>
+              <MoreIcon />
             </IconButton>
           </div>
         </Toolbar>

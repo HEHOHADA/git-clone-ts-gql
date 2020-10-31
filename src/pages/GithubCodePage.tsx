@@ -18,15 +18,16 @@ export const GithubCodePage = (props: RouteComponentProps) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        Accept: 'application/json'
       },
       body: JSON.stringify({
         client_id: githubClientKeys.clientId,
         client_secret: githubClientKeys.clientSecret,
         code
       })
-    }).then(res => res.json())
-      .then(res => {
+    })
+      .then((res) => res.json())
+      .then((res) => {
         if (res.access_token) {
           setTokeValue(res.access_token)
           history.push('/')
@@ -36,13 +37,17 @@ export const GithubCodePage = (props: RouteComponentProps) => {
       })
   }, [code])
 
-
   return (
     <MainLayout>
-      { content ? <DialogItem
-        actions={ <Link to="/login">Повторить попытку</Link> }
-        content={ content }
-        header={ 'Что-то пошло не так' }/> : <h1>Вы успешно вошли в систему</h1> }
+      { content ? (
+        <DialogItem
+          actions={ <Link to="/login">Повторить попытку</Link> }
+          contentText={ content }
+          header={ 'Что-то пошло не так' }
+        />
+      ) : (
+        <h1>Вы успешно вошли в систему</h1>
+      ) }
     </MainLayout>
   )
 }
