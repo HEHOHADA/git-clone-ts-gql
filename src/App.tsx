@@ -1,7 +1,7 @@
 import React from "react";
-import Login from "./app/pages/login";
+import Login from "./pages/login";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import PrivateRoute from "./app/routes/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 export default function App() {
   const isAuth = false;
   return (

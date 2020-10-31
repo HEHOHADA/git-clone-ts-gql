@@ -5,8 +5,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
-import UserSearchResult from "./UserSearchResult";
-import RepositorySearchResult from "./RepositorySearchResult";
 
 export default function SearchForm() {
   const classes = useStyles();
@@ -18,12 +16,11 @@ export default function SearchForm() {
   };
 
   const setUserInput = (event: React.ChangeEvent<{ value: string }>) => {
-    console.log(event.target.value);
     setInput(event.target.value as string);
   };
 
   return (
-    <div className={classes.container}>
+    <div>
       <Container className={classes.searchForm}>
         <h1 className={classes.title}>SEARCH</h1>
         <div>
@@ -45,22 +42,17 @@ export default function SearchForm() {
           </FormControl>
         </div>
       </Container>
-      {searchType === "repositories" ? (
+      {/* {searchType === "repositories" ? (
         <RepositorySearchResult input={userInput} />
       ) : (
         <UserSearchResult input={userInput} />
-      )}
+      )} */}
     </div>
   );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      backgroundAttachment: "fixed",
-      background:
-        "linear-gradient(180deg, rgba(43,49,55,1) 0%, rgba(105,105,105,1) 100%)",
-    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
