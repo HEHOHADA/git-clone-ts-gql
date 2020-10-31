@@ -4,8 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-
-const github = require("../../static/github.png");
+import github from "../../static/github.png";
 
 export default function SearchAppBar() {
   const classes = useStyles();
