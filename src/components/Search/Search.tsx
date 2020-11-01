@@ -5,6 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Container from "@material-ui/core/Container";
+import RepositorySearchResult from "./RepositorySearchResult";
+import UserSearchResult from "./UserSearchResult";
 
 export default function SearchForm() {
   const classes = useStyles();
@@ -20,57 +22,68 @@ export default function SearchForm() {
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       <Container className={classes.searchForm}>
         <h1 className={classes.title}>SEARCH</h1>
-        <div>
-          <OutlinedInput
-            className={classes.input}
-            value={userInput}
-            onChange={setUserInput}
-            placeholder={searchType}
-          />
-          <FormControl
-            required
-            variant="outlined"
-            className={classes.formControl}
+        <OutlinedInput
+          className={classes.input}
+          value={userInput}
+          onChange={setUserInput}
+          placeholder={searchType}
+        />
+        <FormControl
+          required
+          variant="outlined"
+          className={classes.formControl}
+        >
+          <Select
+            value={searchType}
+            onChange={setSearchType}
+            className={classes.select}
           >
-            <Select value={searchType} onChange={setSearchType}>
-              <MenuItem value={"repositories"}>Repositories</MenuItem>
-              <MenuItem value={"users"}>Users</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+            <MenuItem value={"repositories"}>Repositories</MenuItem>
+            <MenuItem value={"users"}>Users</MenuItem>
+          </Select>
+        </FormControl>
+        {searchType === "repositories" ? (
+          <RepositorySearchResult input={userInput} />
+        ) : (
+          <UserSearchResult input={userInput} />
+        )}
       </Container>
-      {/* {searchType === "repositories" ? (
-        <RepositorySearchResult input={userInput} />
-      ) : (
-        <UserSearchResult input={userInput} />
-      )} */}
     </div>
   );
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      backgroundAttachment: "fixed",
+      background:
+        "linear-gradient(180deg, rgba(43,49,55,1) 0%, rgba(105,105,105,1) 100%)",
+    },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
-      paddingBottom: "20%",
     },
     searchForm: {
       padding: "1%",
-      width: "80%",
+      width: "70%",
       borderRadius: "15px",
       backgroundColor: "#fafbfc",
       textAlign: "center",
       color: "#2b3137",
+      paddingBottom: "7%",
     },
     input: {
       width: "90%",
+      height: "10vh",
     },
     title: {
       marginBottom: "3%",
+    },
+    select: {
+      height: "7vh",
     },
   })
 );

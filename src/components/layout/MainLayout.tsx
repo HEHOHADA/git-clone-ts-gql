@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React, { PropsWithChildren } from "react";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 
 const useStyles = makeStyles(() => ({
   container: {
