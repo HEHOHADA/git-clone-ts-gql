@@ -6,7 +6,6 @@ import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 const ShortRepository = ({ repository }: { repository: any }) => {
   const classes = useStyles();
-  console.log({ repository });
   return (
     <Container className={classes.repContainer}>
       {repository.isLock ? (
