@@ -5,20 +5,27 @@ import { yellow } from '@material-ui/core/colors'
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { Link } from 'react-router-dom'
-const ShortRepository = ({ repository }: { repository: any }) => {
+import { Repository } from '../../models/repository'
+
+export interface RepositoryProps {
+  data: Repository
+}
+const ShortRepository: React.FC<RepositoryProps> = ({
+  data: { name, isLock, isStarred, ownerLogin }
+}) => {
   const classes = useStyles()
   return (
     <Container className={classes.repContainer}>
-      {repository.isLock ? (
+      {isLock ? (
         <LockOutlinedIcon style={{ paddingRight: '3%' }} />
       ) : (
         <LockOpenOutlinedIcon style={{ paddingRight: '3%' }} />
       )}
-      <Link to={`${repository.owner.login}/${repository.name}`} className={classes.link}>
-        {repository.name}
+      <Link to={`${ownerLogin}/${name}`} className={classes.link}>
+        {name}
       </Link>
       <IconButton className={classes.starButton}>
-        {repository.isStarred ? (
+        {isStarred ? (
           <StarIcon style={{ color: 'white' }} />
         ) : (
           <StarIcon style={{ color: yellow[500] }} />
@@ -27,6 +34,7 @@ const ShortRepository = ({ repository }: { repository: any }) => {
     </Container>
   )
 }
+
 const useStyles = makeStyles(() => ({
   repContainer: {
     width: '80%',
