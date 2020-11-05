@@ -1,5 +1,5 @@
 import React from 'react'
-import { User } from '../../models/user'
+import { User } from '../../types/user'
 import ShortUser from './ShortUser'
 function Users({ users }: { users: Array<User> }) {
   return (

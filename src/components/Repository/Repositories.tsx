@@ -1,5 +1,5 @@
 import React from 'react'
-import { Repository } from '../../models/repository'
+import { Repository } from '../../types/repository'
 import ShortRepository from '../Repository/ShortRepository'
 
 function Repositories({ repositories }: { repositories: Array<Repository> }) {

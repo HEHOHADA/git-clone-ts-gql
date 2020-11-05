@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { User } from '../../models/user'
+import { User } from '../../types/user'
 
 interface UserProps {
   data: User

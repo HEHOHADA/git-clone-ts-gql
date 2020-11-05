@@ -1,5 +1,5 @@
 import React from 'react'
-import { Repository } from '../../models/repository';
+import { Repository } from '../../types/repository';
 import Repositories from '../Repository/Repositories'
 const repositories: Array<Repository> = [
 

@@ -7,16 +7,15 @@ import Select from '@material-ui/core/Select'
 import Container from '@material-ui/core/Container'
 import RepositorySearchResult from './RepositorySearchResult'
 import UserSearchResult from './UserSearchResult'
+import { SearchType } from '../../types/searchType'
 
 export default function SearchForm() {
   const classes = useStyles()
-  const [searchType, setType] = useState('repositories')
-  type searchType = 'repositories' | 'users'
+  const [searchType, setType] = useState<SearchType>('repositories')
   const [searchInput, setInput] = useState('')
   const setSearchType = (event: ChangeEvent<{ value: unknown }>) => {
-    setType(event.target.value as string)
+    setType(event.target.value as SearchType)
   }
-
   const setUserInput = (event: ChangeEvent<{ value: string }>) => {
     setInput(event.target.value as string)
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { User } from '../../models/user'
+import { User } from '../../types/user'
 import Users from '../User/Users'
 const users: Array<User> = []
 const UserSearchResult = ({ input }: { input: string }) => (

@@ -5,7 +5,7 @@ import { yellow } from '@material-ui/core/colors'
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { Link } from 'react-router-dom'
-import { Repository } from '../../models/repository'
+import { Repository } from '../../types/repository'
 
 interface RepositoryProps {
   data: Repository
