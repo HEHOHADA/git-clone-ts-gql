@@ -9,11 +9,10 @@ import RepositorySearchResult from './RepositorySearchResult'
 import UserSearchResult from './UserSearchResult'
 
 export default function SearchForm() {
-  
   const classes = useStyles()
   const [searchType, setType] = useState('repositories')
+  type searchType = 'repositories' | 'users'
   const [searchInput, setInput] = useState('')
-
   const setSearchType = (event: ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string)
   }
