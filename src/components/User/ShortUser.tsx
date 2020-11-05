@@ -3,7 +3,7 @@ import { Container, makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { User } from '../../models/user'
 
-export interface UserProps {
+interface UserProps {
   data: User
 }
 const ShortUser: React.FC<UserProps> = ({ data: { avatar, name } }) => {

@@ -7,7 +7,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { Link } from 'react-router-dom'
 import { Repository } from '../../models/repository'
 
-export interface RepositoryProps {
+interface RepositoryProps {
   data: Repository
 }
 const ShortRepository: React.FC<RepositoryProps> = ({
