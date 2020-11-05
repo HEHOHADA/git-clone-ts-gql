@@ -5,7 +5,7 @@ function Users({ users }: { users: Array<User> }) {
   return (
     <div>
       {users.map((user: User) => (
-        <ShortUser data={user} />
+        <ShortUser key={user.id} data={user} />
       ))}
     </div>
   )

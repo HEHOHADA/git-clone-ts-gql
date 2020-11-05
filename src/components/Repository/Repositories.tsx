@@ -6,7 +6,7 @@ function Repositories({ repositories }: { repositories: Array<Repository> }) {
   return (
     <div>
       {repositories.map((repository: Repository) => (
-        <ShortRepository data={repository} />
+        <ShortRepository key={repository.id} data={repository} />
       ))}
     </div>
   )
