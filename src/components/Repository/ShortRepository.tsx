@@ -17,15 +17,13 @@ const ShortRepository = ({ repository }: { repository: any }) => {
       <Link to={`${repository.owner.login}/${repository.name}`} className={classes.link}>
         {repository.name}
       </Link>
-      {repository.isStarred ? (
-        <IconButton className={classes.starButton}>
+      <IconButton className={classes.starButton}>
+        {repository.isStarred ? (
           <StarIcon style={{ color: 'white' }} />
-        </IconButton>
-      ) : (
-        <IconButton className={classes.starButton}>
+        ) : (
           <StarIcon style={{ color: yellow[500] }} />
-        </IconButton>
-      )}
+        )}
+      </IconButton>
     </Container>
   )
 }
