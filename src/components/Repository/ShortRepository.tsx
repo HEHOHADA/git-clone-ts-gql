@@ -17,18 +17,18 @@ const ShortRepository: React.FC<RepositoryProps> = ({
   return (
     <Container className={classes.repContainer}>
       {isLock ? (
-        <LockOutlinedIcon style={{ paddingRight: '3%' }} />
+        <LockOutlinedIcon className={classes.lock} />
       ) : (
-        <LockOpenOutlinedIcon style={{ paddingRight: '3%' }} />
+        <LockOpenOutlinedIcon className={classes.lock} />
       )}
       <Link to={`${ownerLogin}/${name}`} className={classes.link}>
         {name}
       </Link>
       <IconButton className={classes.starButton}>
         {isStarred ? (
-          <StarIcon style={{ color: 'white' }} />
+          <StarIcon className={classes.starred} />
         ) : (
-          <StarIcon style={{ color: yellow[500] }} />
+          <StarIcon className={classes.notStarred} />
         )}
       </IconButton>
     </Container>
@@ -49,6 +49,15 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     verticalAlign: 'super'
+  },
+  starred: {
+    color: yellow[500]
+  },
+  notStarred: {
+    color: 'white'
+  },
+  lock: {
+    paddingRight: '3%'
   }
 }))
 export default ShortRepository
