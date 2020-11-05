@@ -25,11 +25,7 @@ const ShortRepository: React.FC<RepositoryProps> = ({
         {name}
       </Link>
       <IconButton className={classes.starButton}>
-        {isStarred ? (
-          <StarIcon className={classes.starred} />
-        ) : (
-          <StarIcon className={classes.notStarred} />
-        )}
+        <StarIcon className={isStarred ? classes.starred : classes.notStarred} />
       </IconButton>
     </Container>
   )
