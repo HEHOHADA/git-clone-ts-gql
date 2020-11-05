@@ -9,9 +9,10 @@ import RepositorySearchResult from './RepositorySearchResult'
 import UserSearchResult from './UserSearchResult'
 
 export default function SearchForm() {
+  
   const classes = useStyles()
   const [searchType, setType] = useState('repositories')
-  const [userInput, setInput] = useState('')
+  const [searchInput, setInput] = useState('')
 
   const setSearchType = (event: ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as string)
@@ -27,7 +28,7 @@ export default function SearchForm() {
         <h1 className={classes.title}>SEARCH</h1>
         <OutlinedInput
           className={classes.input}
-          value={userInput}
+          value={searchInput}
           onChange={setUserInput}
           placeholder={searchType}
         />
@@ -38,9 +39,9 @@ export default function SearchForm() {
           </Select>
         </FormControl>
         {searchType === 'repositories' ? (
-          <RepositorySearchResult input={userInput} />
+          <RepositorySearchResult input={searchInput} />
         ) : (
-          <UserSearchResult input={userInput} />
+          <UserSearchResult input={searchInput} />
         )}
       </Container>
     </div>
