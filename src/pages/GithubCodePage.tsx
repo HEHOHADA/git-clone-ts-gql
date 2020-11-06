@@ -32,6 +32,7 @@ export const GithubCodePage = (props: RouteComponentProps) => {
           setTokeValue(res.access_token)
           history.push('/')
         } else {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           content = res.error_description
         }
       })

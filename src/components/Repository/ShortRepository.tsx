@@ -10,7 +10,8 @@ import { Repository } from '../../types/repository'
 interface RepositoryProps {
   data: Repository
 }
-const ShortRepository: React.FC<RepositoryProps> = ({
+
+export const ShortRepository: React.FC<RepositoryProps> = ({
   data: { name, isLock, isStarred, ownerLogin }
 }) => {
   const classes = useStyles()
@@ -56,4 +57,3 @@ const useStyles = makeStyles(() => ({
     paddingRight: '3%'
   }
 }))
-export default ShortRepository

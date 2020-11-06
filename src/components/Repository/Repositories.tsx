@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Repository } from '../../types/repository'
-import ShortRepository from '../Repository/ShortRepository'
+import { ShortRepository } from './ShortRepository'
 
-function Repositories({ repositories }: { repositories: Array<Repository> }) {
+type PropsType = {
+  repositories: Array<Repository>
+
+}
+export const Repositories: FC<PropsType> = ({repositories}) => {
   return (
     <div>
-      {repositories.map((repository: Repository) => (
-        <ShortRepository key={repository.id} data={repository} />
-      ))}
+      { repositories.map((repository: Repository) => (
+        <ShortRepository key={ repository.id } data={ repository }/>
+      )) }
     </div>
   )
 }
-export default Repositories

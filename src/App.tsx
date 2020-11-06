@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import withApollo from './lib/withApollo'
 import { GithubCodePage } from './pages/GithubCodePage'
-import Login from './pages/login'
+import Login from './pages/Login'
 import Search from './pages/Search'
 
 function App(): JSX.Element {

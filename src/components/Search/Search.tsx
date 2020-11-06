@@ -1,46 +1,48 @@
 import React, { ChangeEvent, useState } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import OutlinedInput from '@material-ui/core/OutlinedInput'
+import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 import Container from '@material-ui/core/Container'
-import RepositorySearchResult from './RepositorySearchResult'
-import UserSearchResult from './UserSearchResult'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { RepositorySearchResult } from './RepositorySearchResult'
+import { UserSearchResult } from './UserSearchResult'
 import { SearchType } from '../../types/searchType'
 
-export default function SearchForm() {
+export const SearchForm = () => {
   const classes = useStyles()
   const [searchType, setType] = useState<SearchType>('repositories')
-  const [searchInput, setInput] = useState('')
+  const [searchInput, setInput] = useState<string>('')
+
   const setSearchType = (event: ChangeEvent<{ value: unknown }>) => {
     setType(event.target.value as SearchType)
   }
+
   const setUserInput = (event: ChangeEvent<{ value: string }>) => {
     setInput(event.target.value as string)
   }
 
   return (
-    <div className={classes.container}>
-      <Container className={classes.searchForm}>
-        <h1 className={classes.title}>SEARCH</h1>
+    <div className={ classes.container }>
+      <Container className={ classes.searchForm }>
+        <h1 className={ classes.title }>SEARCH</h1>
         <OutlinedInput
-          className={classes.input}
-          value={searchInput}
-          onChange={setUserInput}
-          placeholder={searchType}
+          className={ classes.input }
+          value={ searchInput }
+          onChange={ setUserInput }
+          placeholder={ searchType }
         />
-        <FormControl required variant="outlined" className={classes.formControl}>
-          <Select value={searchType} onChange={setSearchType} className={classes.select}>
-            <MenuItem value={'repositories'}>Repositories</MenuItem>
-            <MenuItem value={'users'}>Users</MenuItem>
+        <FormControl required variant="outlined" className={ classes.formControl }>
+          <Select value={ searchType } onChange={ setSearchType } className={ classes.select }>
+            <MenuItem value={ 'repositories' }>Repositories</MenuItem>
+            <MenuItem value={ 'users' }>Users</MenuItem>
           </Select>
         </FormControl>
-        {searchType === 'repositories' ? (
-          <RepositorySearchResult input={searchInput} />
+        { searchType === 'repositories' ? (
+          <RepositorySearchResult input={ searchInput }/>
         ) : (
-          <UserSearchResult input={searchInput} />
-        )}
+          <UserSearchResult input={ searchInput }/>
+        ) }
       </Container>
     </div>
   )

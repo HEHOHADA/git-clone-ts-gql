@@ -6,13 +6,14 @@ import { User } from '../../types/user'
 interface UserProps {
   data: User
 }
-const ShortUser: React.FC<UserProps> = ({ data: { avatar, name } }) => {
+
+export const ShortUser: React.FC<UserProps> = ({data: {avatar, name}}) => {
   const classes = useStyles()
   return (
-    <Container className={classes.container}>
-      <img src={avatar} className={classes.avatar} />
-      <Link to={`/${name}`} className={classes.link}>
-        {name}
+    <Container className={ classes.container }>
+      <img src={ avatar } className={ classes.avatar } alt="Фото пользователя"/>
+      <Link to={ `/${ name }` } className={ classes.link }>
+        { name }
       </Link>
     </Container>
   )
@@ -35,4 +36,3 @@ const useStyles = makeStyles(() => ({
     paddingRight: '2%'
   }
 }))
-export default ShortUser

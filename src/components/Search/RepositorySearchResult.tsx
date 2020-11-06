@@ -1,12 +1,13 @@
-import React from 'react'
-import { Repository } from '../../types/repository';
-import Repositories from '../Repository/Repositories'
-const repositories: Array<Repository> = [
+import React, { FC } from 'react'
+import { Repository } from '../../types/repository'
+import { Repositories } from '../Repository/Repositories'
 
-]
-const RepositorySearchResult = ({ input }: { input: string }) => (
+const repositories: Array<Repository> = []
+
+type PropsType = { input: string }
+
+export const RepositorySearchResult: FC<PropsType> = ({input}) => (
   <div>
-    <Repositories repositories={repositories}/>
+    <Repositories repositories={ repositories }/>
   </div>
 )
-export default RepositorySearchResult
