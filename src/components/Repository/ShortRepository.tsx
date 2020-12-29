@@ -1,51 +1,44 @@
 import React from 'react'
-import { Container, IconButton, makeStyles } from '@material-ui/core'
-import StarIcon from './Star'
-import { yellow } from '@material-ui/core/colors'
-import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { Container, makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { Repository } from '../../types/repository'
+import { Repository } from '../../generated/graphql'
+import { yellow } from '@material-ui/core/colors'
 
 interface RepositoryProps {
   data: Repository
 }
 
 export const ShortRepository: React.FC<RepositoryProps> = ({
-  data: { name, isLock, isStarred, ownerLogin }
+  data: { name, owner }
 }) => {
   const classes = useStyles()
+  const repoFullName=`${owner.login}/${name}`
   return (
     <Container className={classes.repContainer}>
-      {isLock ? (
-        <LockOutlinedIcon className={classes.lock} />
-      ) : (
-        <LockOpenOutlinedIcon className={classes.lock} />
-      )}
-      <Link to={`${ownerLogin}/${name}`} className={classes.link}>
-        {name}
+      <Link to={repoFullName} className={classes.link}>
+        {repoFullName}
       </Link>
-      <IconButton className={classes.starButton}>
-        <StarIcon className={isStarred ? classes.starred : classes.notStarred} />
-      </IconButton>
     </Container>
   )
 }
 
 const useStyles = makeStyles(() => ({
   repContainer: {
-    width: '80%',
-    border: '1px solid #0000005e',
     borderRadius: '7px',
     marginLeft: '10%',
-    marginBottom: '1%'
+    marginTop: '5px',
+    marginBottom: '1%',
+    paddingLeft: '0'
   },
   starButton: {
     verticalAlign: 'baseline',
     color: yellow[500]
   },
   link: {
-    verticalAlign: 'super'
+    verticalAlign: 'super',
+    color: '#0366d6',
+    outline: 'none',
+    fontSize: '14px'
   },
   starred: {
     color: yellow[500]

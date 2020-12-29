@@ -12,10 +12,10 @@ const PrivateRoute = (props: PrivateRouteProps) => {
     <Route
       { ...rest }
       render={ (routeProps) =>
-        isAuth ? (
+        !isAuth ? (
           <Redirect
             to={ {
-              pathname: '/home',
+              pathname: '/',
               state: {from: routeProps.location},
             } }
           />

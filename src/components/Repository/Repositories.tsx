@@ -1,17 +1,26 @@
-import React, { FC } from 'react'
-import { Repository } from '../../types/repository'
+import React, { FC, useEffect, useState } from 'react'
 import { ShortRepository } from './ShortRepository'
+import { RepositoryEdge } from '../../generated/graphql'
 
 type PropsType = {
-  repositories: Array<Repository>
-
+  repositories: Array<RepositoryEdge>
+  search: string
 }
-export const Repositories: FC<PropsType> = ({repositories}) => {
+export const Repositories: FC<PropsType> = ({repositories, search}) => {
+  const [searchRepos, setSearchRepos] = useState<Array<RepositoryEdge>>(repositories)
+  useEffect(() => {
+    const newSearchState = repositories
+      .filter(r => r?.node?.name.includes(search))
+    setSearchRepos(newSearchState)
+  }, [search, repositories])
   return (
     <div>
-      { repositories.map((repository: Repository) => (
-        <ShortRepository key={ repository.id } data={ repository }/>
-      )) }
+      { searchRepos.map((repository) => {
+          return repository.node ?
+            <ShortRepository key={ repository.node.name } data={ repository.node }/> :
+            null
+        }
+      ) }
     </div>
   )
 }

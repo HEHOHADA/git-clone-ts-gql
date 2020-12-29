@@ -8,6 +8,6 @@ type PropsType = { input: string }
 
 export const RepositorySearchResult: FC<PropsType> = ({input}) => (
   <div>
-    <Repositories repositories={ repositories }/>
+    <Repositories search={ '' } repositories={ repositories as any }/>
   </div>
 )
