@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
 import { RepositoryCard } from './RepositoryCard'
+import { RepositoryEdge } from '../../generated/graphql'
 
-export const RepositoriesCard = ({data}: any) => {
+
+type PropsType = {
+  data: Array<RepositoryEdge>
+}
+export const RepositoriesCard: FC<PropsType> = ({data}) => {
   const classes = useStyles()
   return (
     <Container className={ classes.container }>
-      { data.map((item: any) => {
+      { data.filter(({node}) => node).map(({node}: RepositoryEdge) => {
         return (
-          <RepositoryCard { ...item } key={ item.id }/>
+          node && <RepositoryCard { ...node } key={ node.name }/>
         )
       }) }
     </Container>

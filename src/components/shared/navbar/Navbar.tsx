@@ -17,9 +17,10 @@ import { AppBar } from '@material-ui/core'
 type PropsType = {
   isAuth?: boolean
   onLogout: () => void
+  goHome: () => void
 }
 
-export const Navbar: FC<PropsType> = ({isAuth}) => {
+export const Navbar: FC<PropsType> = ({goHome, onLogout}) => {
   const classes = useStyles()
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -56,9 +57,7 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
       open={ isMenuOpen }
       onClose={ handleMenuClose }
     >
-      <MenuItem onClick={ handleMenuClose }>Profile</MenuItem>
-      <MenuItem onClick={ handleMenuClose }>My account</MenuItem>
-      {/* <MenuItem onClick={ onLogout }>Logout</MenuItem>*/ }
+      <MenuItem onClick={ onLogout }>Logout</MenuItem>
     </Menu>
   )
 
@@ -106,22 +105,12 @@ export const Navbar: FC<PropsType> = ({isAuth}) => {
     <div className={ classes.grow }>
       <AppBar className={ classes.appBar } position="static">
         <Toolbar>
-          <Typography className={ classes.title } variant="h6" noWrap>
+          <Typography onClick={ goHome } className={ classes.title } variant="h6" noWrap>
             <img src={ github } className={ classes.icon } alt="Github Clone"/>
           </Typography>
           <Search/>
           <div className={ classes.grow }/>
           <div className={ classes.sectionDesktop }>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={ 4 } color="secondary">
-                <MailIcon/>
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={ 17 } color="secondary">
-                <NotificationsIcon/>
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -162,8 +151,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       width: '150px',
-      display: 'flex',
-      marginLeft: '5%',
+      display: 'flex'
     },
     menuButton: {
       marginRight: theme.spacing(2)
@@ -172,7 +160,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'block'
-      }
+      },
+      cursor: 'pointer'
     },
     sectionDesktop: {
       display: 'none',

@@ -1,23 +1,25 @@
-import React from 'react'
-import { Box, Button, Container, Grid } from '@material-ui/core'
-import { Image } from '@material-ui/icons'
+import React, { FC } from 'react'
+import { Box, Container, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-export const ProfileItem = () => {
+type PropsType = {
+  url: string
+  bio?: string | null
+  name: string
+}
+
+export const ProfileItem: FC<PropsType> = ({url, bio, name}) => {
   const classes = useStyles()
   return (
     <Container className={ classes.container }>
       <Box>
-        <Image/>
+        <img src={ url } className={ classes.img } alt={ name }/>
       </Box>
       <Grid>
-        <Grid>dsadsa</Grid>
+        <Grid>{ name }</Grid>
       </Grid>
       <Grid>
-        <Button>click</Button>
-      </Grid>
-      <Grid>
-        <Grid>dsadsa</Grid>
+        <Grid>{ bio }</Grid>
       </Grid>
     </Container>
   )
@@ -25,5 +27,9 @@ export const ProfileItem = () => {
 const useStyles = makeStyles(() => ({
   container: {
     flex: 1
+  },
+  img: {
+    width: '100%',
+    borderRadius: '50%'
   }
 }))

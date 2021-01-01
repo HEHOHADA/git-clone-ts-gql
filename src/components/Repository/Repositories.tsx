@@ -8,11 +8,13 @@ type PropsType = {
 }
 export const Repositories: FC<PropsType> = ({repositories, search}) => {
   const [searchRepos, setSearchRepos] = useState<Array<RepositoryEdge>>(repositories)
+
   useEffect(() => {
     const newSearchState = repositories
       .filter(r => r?.node?.name.includes(search))
     setSearchRepos(newSearchState)
   }, [search, repositories])
+
   return (
     <div>
       { searchRepos.map((repository) => {

@@ -12,9 +12,14 @@ export const MainLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
     setTokeValue('')
     history.push('/login')
   }
+
+  const goHome = () => {
+    history.push('/')
+  }
+
   return (
     <div className={ classes.container }>
-      <Navbar isAuth={isAuth} onLogout={onLogout}/>
+      <Navbar goHome={goHome} isAuth={ isAuth } onLogout={ onLogout }/>
       <div>{ children }</div>
     </div>
   )

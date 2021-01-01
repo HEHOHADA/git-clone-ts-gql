@@ -1,5 +1,5 @@
-import * as Apollo from '@apollo/client'
 import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -20061,7 +20061,7 @@ export type ViewerHovercardContext = HovercardContext & {
 
 export type RepoInfoFragment = (
   { __typename?: 'Repository' }
-  & Pick<Repository, 'name' | 'description'>
+  & Pick<Repository, 'name' | 'openGraphImageUrl' | 'description'>
   & {
   owner: (
     { __typename?: 'Organization' }
@@ -20087,7 +20087,10 @@ export type RepoInfoFragment = (
       & Pick<Tree, 'oid'>
       )>
   }
-    )>, languages?: Maybe<(
+    )>, stargazers: (
+    { __typename?: 'StargazerConnection' }
+    & Pick<StargazerConnection, 'totalCount'>
+    ), languages?: Maybe<(
     { __typename?: 'LanguageConnection' }
     & {
     edges?: Maybe<Array<Maybe<(
@@ -20123,6 +20126,20 @@ export type RepoInfoFragment = (
 }
   );
 
+export type UserInfoFragment = (
+  { __typename?: 'User' }
+  & Pick<User, 'login' | 'url' | 'avatarUrl' | 'bio'>
+  & {
+  followers: (
+    { __typename?: 'FollowerConnection' }
+    & Pick<FollowerConnection, 'totalCount'>
+    ), following: (
+    { __typename?: 'FollowingConnection' }
+    & Pick<FollowingConnection, 'totalCount'>
+    )
+}
+  );
+
 export type GetRepoQueryVariables = Exact<{
   owner: Scalars['String'];
   name: Scalars['String'];
@@ -20135,6 +20152,38 @@ export type GetRepoQuery = (
   repository?: Maybe<(
     { __typename?: 'Repository' }
     & RepoInfoFragment
+    )>
+}
+  );
+
+export type GetUserDetailQueryVariables = Exact<{
+  login: Scalars['String'];
+}>;
+
+
+export type GetUserDetailQuery = (
+  { __typename?: 'Query' }
+  & {
+  user?: Maybe<(
+    { __typename?: 'User' }
+    & {
+    repositories: (
+      { __typename?: 'RepositoryConnection' }
+      & Pick<RepositoryConnection, 'totalCount'>
+      & {
+      edges?: Maybe<Array<Maybe<(
+        { __typename?: 'RepositoryEdge' }
+        & {
+        node?: Maybe<(
+          { __typename?: 'Repository' }
+          & RepoInfoFragment
+          )>
+      }
+        )>>>
+    }
+      )
+  }
+    & UserInfoFragment
     )>
 }
   );
@@ -20168,46 +20217,89 @@ export type GetViewerReposQuery = (
 }
   );
 
+export type Unnamed_1_QueryVariables = Exact<{
+  count: Scalars['Int'];
+  type: SearchType;
+  query: Scalars['String'];
+}>;
+
+
+export type Unnamed_1_Query = (
+  { __typename?: 'Query' }
+  & {
+  search: (
+    { __typename?: 'SearchResultItemConnection' }
+    & {
+    nodes?: Maybe<Array<Maybe<{ __typename?: 'App' } | { __typename?: 'Issue' } | { __typename?: 'MarketplaceListing' } | { __typename?: 'Organization' } | { __typename?: 'PullRequest' } | (
+      { __typename?: 'Repository' }
+      & RepoInfoFragment
+      ) | (
+      { __typename?: 'User' }
+      & UserInfoFragment
+      )>>>
+  }
+    )
+}
+  );
+
 export const RepoInfoFragmentDoc = gql`
-    fragment RepoInfo on Repository {
-        name
-        description
-        owner {
-            login
-        }
-        defaultBranchRef {
-            name
-            target {
-                __typename
-                oid
-            }
-        }
-        languages(first: 10) {
-            edges {
-                node {
-                    name
-                    color
-                }
-                size
-            }
-        }
-        repositoryTopics(first: 10) {
-            edges {
-                node {
-                    topic {
-                        name
-                    }
-                }
-            }
-        }
+  fragment RepoInfo on Repository {
+    name
+    openGraphImageUrl
+    description
+    owner {
+      login
     }
+    defaultBranchRef {
+      name
+      target {
+        __typename
+        oid
+      }
+    }
+    stargazers {
+      totalCount
+    }
+    languages(first: 10) {
+      edges {
+        node {
+          name
+          color
+        }
+        size
+      }
+    }
+    repositoryTopics(first: 10) {
+      edges {
+        node {
+          topic {
+            name
+          }
+        }
+      }
+    }
+  }
+`
+export const UserInfoFragmentDoc = gql`
+  fragment UserInfo on User {
+    login
+    url
+    avatarUrl
+    bio
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
+  }
 `
 export const GetRepoDocument = gql`
-    query GetRepo($owner: String!, $name: String!) {
-        repository(owner: $owner, name: $name) {
-            ...RepoInfo
-        }
+  query GetRepo($owner: String!, $name: String!) {
+    repository(owner: $owner, name: $name) {
+      ...RepoInfo
     }
+  }
 ${RepoInfoFragmentDoc}`
 
 /**
@@ -20238,19 +20330,63 @@ export function useGetRepoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetRepoQueryHookResult = ReturnType<typeof useGetRepoQuery>;
 export type GetRepoLazyQueryHookResult = ReturnType<typeof useGetRepoLazyQuery>;
 export type GetRepoQueryResult = Apollo.QueryResult<GetRepoQuery, GetRepoQueryVariables>;
-export const GetViewerReposDocument = gql`
-    query GetViewerRepos {
-        viewer {
-            repositories(first: 100) {
-                totalCount
-                edges {
-                    node {
-                        ...RepoInfo
-                    }
-                }
-            }
+export const GetUserDetailDocument = gql`
+  query GetUserDetail($login: String!) {
+    user(login: $login) {
+      repositories(first: 20, orderBy: {field: PUSHED_AT, direction: DESC}) {
+        totalCount
+        edges {
+          node {
+            ...RepoInfo
+          }
         }
+      }
+      ...UserInfo
     }
+  }
+  ${RepoInfoFragmentDoc}
+${UserInfoFragmentDoc}`
+
+/**
+ * __useGetUserDetailQuery__
+ *
+ * To run a query within a React component, call `useGetUserDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserDetailQuery({
+ *   variables: {
+ *      login: // value for 'login'
+ *   },
+ * });
+ */
+export function useGetUserDetailQuery(baseOptions: Apollo.QueryHookOptions<GetUserDetailQuery, GetUserDetailQueryVariables>) {
+  return Apollo.useQuery<GetUserDetailQuery, GetUserDetailQueryVariables>(GetUserDetailDocument, baseOptions)
+}
+
+export function useGetUserDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserDetailQuery, GetUserDetailQueryVariables>) {
+  return Apollo.useLazyQuery<GetUserDetailQuery, GetUserDetailQueryVariables>(GetUserDetailDocument, baseOptions)
+}
+
+export type GetUserDetailQueryHookResult = ReturnType<typeof useGetUserDetailQuery>;
+export type GetUserDetailLazyQueryHookResult = ReturnType<typeof useGetUserDetailLazyQuery>;
+export type GetUserDetailQueryResult = Apollo.QueryResult<GetUserDetailQuery, GetUserDetailQueryVariables>;
+export const GetViewerReposDocument = gql`
+  query GetViewerRepos {
+    viewer {
+      repositories(first: 20, orderBy: {field: PUSHED_AT, direction: DESC}) {
+        totalCount
+        edges {
+          node {
+            ...RepoInfo
+          }
+        }
+      }
+    }
+  }
 ${RepoInfoFragmentDoc}`
 
 /**
@@ -20279,3 +20415,14 @@ export function useGetViewerReposLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetViewerReposQueryHookResult = ReturnType<typeof useGetViewerReposQuery>;
 export type GetViewerReposLazyQueryHookResult = ReturnType<typeof useGetViewerReposLazyQuery>;
 export type GetViewerReposQueryResult = Apollo.QueryResult<GetViewerReposQuery, GetViewerReposQueryVariables>;
+export const Document = gql`
+  query ($count: Int!, $type: SearchType!, $query: String!) {
+    search(first: $count, type: $type, query: $query) {
+      nodes {
+        ...RepoInfo
+        ...UserInfo
+      }
+    }
+  }
+  ${RepoInfoFragmentDoc}
+${UserInfoFragmentDoc}`

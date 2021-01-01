@@ -4,21 +4,30 @@ import { ProfileItem } from '../components/Profile/ProfileItem'
 import { MainContainer } from '../components/ui/MainContainer'
 import { SideBarContainer } from '../components/ui/SideBarContainer'
 import { RepositoriesCard } from '../components/Repository/RepositoriesCard'
+import { useParams } from 'react-router-dom'
+import { RepositoryEdge, useGetUserDetailQuery } from '../generated/graphql'
+import { DataShower } from '../components/shared/DataShower'
+
+type ProfilePageParams = {
+  username: string
+}
 
 export function ProfilePage() {
+  const params = useParams<ProfilePageParams>()
+  const {data, loading, error} = useGetUserDetailQuery({variables: {login: params.username}})
   return (
     <MainLayout>
       <MainContainer>
         <>
           <SideBarContainer width={ 25 }>
-            <ProfileItem/>
+            <ProfileItem
+              bio={ data?.user?.bio }
+              url={ data?.user?.avatarUrl }
+              name={ data?.user?.login as string }/>
           </SideBarContainer>
-          <RepositoriesCard data={ [
-            {name: '1', description: '1', language: '1', id: '1'},
-            {name: '1', description: '1', language: '1', id: '4'},
-            {name: '1', description: '1', language: '1', id: '2'},
-            {name: '1', description: '1', language: '1', id: '3'},
-            ] }/>
+          <DataShower data={ data?.user?.repositories.edges } DataComponent={
+            <RepositoriesCard data={ data?.user?.repositories.edges as Array<RepositoryEdge> }/>
+          } loading={ loading } error={ error }/>
         </>
       </MainContainer>
     </MainLayout>

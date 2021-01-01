@@ -7,8 +7,6 @@ const StarIcon = (props: SvgIconProps) => {
     <SvgIcon
       { ...props }
       stroke="#2b3137"
-      stroke-linejoin="round"
-      stroke-width="7%"
     >
       <path
         d="M12 17.27L18.18 21l-1.64-7.03L22

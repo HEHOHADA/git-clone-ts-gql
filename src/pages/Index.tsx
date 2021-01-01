@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { MainLayout } from '../components/layout/MainLayout'
-import { Container, IconButton } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
 import { Search } from '../components/shared/Search'
 import { makeStyles } from '@material-ui/core/styles'
 import { LibraryAdd } from '@material-ui/icons'
@@ -8,10 +8,11 @@ import { RepositoryEdge, useGetViewerReposQuery } from '../generated/graphql'
 import { Repositories } from '../components/Repository/Repositories'
 import { SideBarContainer } from '../components/ui/SideBarContainer'
 import { MainContainer } from '../components/ui/MainContainer'
+import { DataShower } from '../components/shared/DataShower'
 
 export default function Index() {
   const classes = useStyles()
-  const {data} = useGetViewerReposQuery()
+  const {data, loading, error} = useGetViewerReposQuery()
   const repositories = data?.viewer.repositories.edges
   const [search, setSearch] = useState<string>('')
   const searchInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +29,12 @@ export default function Index() {
             </IconButton>
           </div>
           <Search placeholder={ 'Поиск репозитория' } onChange={ searchInputChange }/>
-          { repositories && <Repositories
-            search={ search }
-            repositories={ repositories as Array<RepositoryEdge> }/> }
+          <DataShower error={ error }
+                      loading={ loading }
+                      data={ repositories }
+                      DataComponent={ <Repositories
+                        search={ search }
+                        repositories={ repositories as Array<RepositoryEdge> }/> }/>
         </SideBarContainer>
       </MainContainer>
     </MainLayout>
