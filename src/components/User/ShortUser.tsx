@@ -1,31 +1,43 @@
 import React from 'react'
-import { Container, makeStyles } from '@material-ui/core'
-import { Link } from 'react-router-dom'
-import { User } from '../../types/user'
+import { Card, CardContent, CardMedia, makeStyles } from '@material-ui/core'
+import { UserInfoFragment } from '../../generated/graphql'
+import Typography from '@material-ui/core/Typography'
 
-interface UserProps {
-  data: User
+type UserProps = UserInfoFragment & {
+  onClick: (url: string) => void
 }
 
-export const ShortUser: React.FC<UserProps> = ({data: {avatar, name}}) => {
+export const ShortUser: React.FC<UserProps> = ({avatarUrl, onClick, login, bio}) => {
   const classes = useStyles()
   return (
-    <Container className={ classes.container }>
-      <img src={ avatar } className={ classes.avatar } alt="Фото пользователя"/>
-      <Link to={ `/${ name }` } className={ classes.link }>
-        { name }
-      </Link>
-    </Container>
+    <Card className={ classes.container }>
+      <div className={ classes.cover }>
+        <CardMedia
+          className={ classes.avatar }
+          image={ avatarUrl }
+          title="Live from space album cover"
+        />
+        <CardContent className={ classes.content } onClick={ () => onClick(`/${ login }`) }>
+          < Typography component='h5' variant='h5'>
+            { login }
+          </Typography>
+          <Typography component='h6' variant='h6'>
+            { bio }
+          </Typography>
+        </CardContent>
+      </div>
+    </Card>
   )
 }
 const useStyles = makeStyles(() => ({
   container: {
-    width: '80%',
-    border: '1px solid #0000005e',
-    borderRadius: '7px',
-    marginLeft: '10%',
-    marginBottom: '1%',
-    padding: '1%'
+    display: 'flex',
+    width: '100%',
+    margin: '2px',
+    flex: 'auto',
+    border: '1px solid #dadada',
+    height: '5rem',
+    cursor: 'pointer',
   },
   link: {
     verticalAlign: 'super'
@@ -33,6 +45,18 @@ const useStyles = makeStyles(() => ({
   avatar: {
     width: '30px',
     height: '30px',
-    paddingRight: '2%'
-  }
+    borderRadius: '50%',
+    marginLeft: '1rem',
+    padding: '2%'
+  },
+  content: {
+    flex: '1 0 auto',
+    width: 'min-content',
+  },
+  cover: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
 }))

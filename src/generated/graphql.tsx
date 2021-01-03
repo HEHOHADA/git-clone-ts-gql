@@ -20217,14 +20217,14 @@ export type GetViewerReposQuery = (
 }
   );
 
-export type Unnamed_1_QueryVariables = Exact<{
+export type SearchByQueryQueryVariables = Exact<{
   count: Scalars['Int'];
   type: SearchType;
   query: Scalars['String'];
 }>;
 
 
-export type Unnamed_1_Query = (
+export type SearchByQueryQuery = (
   { __typename?: 'Query' }
   & {
   search: (
@@ -20415,8 +20415,8 @@ export function useGetViewerReposLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type GetViewerReposQueryHookResult = ReturnType<typeof useGetViewerReposQuery>;
 export type GetViewerReposLazyQueryHookResult = ReturnType<typeof useGetViewerReposLazyQuery>;
 export type GetViewerReposQueryResult = Apollo.QueryResult<GetViewerReposQuery, GetViewerReposQueryVariables>;
-export const Document = gql`
-  query ($count: Int!, $type: SearchType!, $query: String!) {
+export const SearchByQueryDocument = gql`
+  query SearchByQuery($count: Int!, $type: SearchType!, $query: String!) {
     search(first: $count, type: $type, query: $query) {
       nodes {
         ...RepoInfo
@@ -20426,3 +20426,33 @@ export const Document = gql`
   }
   ${RepoInfoFragmentDoc}
 ${UserInfoFragmentDoc}`
+
+/**
+ * __useSearchByQueryQuery__
+ *
+ * To run a query within a React component, call `useSearchByQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchByQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchByQueryQuery({
+ *   variables: {
+ *      count: // value for 'count'
+ *      type: // value for 'type'
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useSearchByQueryQuery(baseOptions: Apollo.QueryHookOptions<SearchByQueryQuery, SearchByQueryQueryVariables>) {
+  return Apollo.useQuery<SearchByQueryQuery, SearchByQueryQueryVariables>(SearchByQueryDocument, baseOptions)
+}
+
+export function useSearchByQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchByQueryQuery, SearchByQueryQueryVariables>) {
+  return Apollo.useLazyQuery<SearchByQueryQuery, SearchByQueryQueryVariables>(SearchByQueryDocument, baseOptions)
+}
+
+export type SearchByQueryQueryHookResult = ReturnType<typeof useSearchByQueryQuery>;
+export type SearchByQueryLazyQueryHookResult = ReturnType<typeof useSearchByQueryLazyQuery>;
+export type SearchByQueryQueryResult = Apollo.QueryResult<SearchByQueryQuery, SearchByQueryQueryVariables>;

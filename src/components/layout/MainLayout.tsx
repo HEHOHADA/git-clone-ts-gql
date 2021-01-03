@@ -19,8 +19,8 @@ export const MainLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
 
   return (
     <div className={ classes.container }>
-      <Navbar goHome={goHome} isAuth={ isAuth } onLogout={ onLogout }/>
-      <div>{ children }</div>
+      <Navbar goHome={ goHome } isAuth={ isAuth } onLogout={ onLogout }/>
+      <div className={ classes.childContainer }>{ children }</div>
     </div>
   )
 }
@@ -28,5 +28,8 @@ export const MainLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
 const useStyles = makeStyles(() => ({
   container: {
     height: '100vh'
+  },
+  childContainer: {
+    height: 'calc(100% - 64px)'
   }
 }))
