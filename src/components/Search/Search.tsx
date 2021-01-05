@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button, MenuItem, Select } from '@material-ui/core'
 import {
   RepoInfoFragment,
+  SearchResultItemEdge,
   SearchType,
   UserInfoFragment,
   useSearchByQueryQuery
@@ -27,25 +28,30 @@ export const SearchForm: FC<PropsType> = ({search}) => {
   const setUserInput = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value)
   }
-  const [count, setCount] = useState(5)
-  const {data, error, loading, variables, fetchMore} = useSearchByQueryQuery({
+  const {data, error, loading, variables, refetch, fetchMore} = useSearchByQueryQuery({
     variables: {
       type: searchType,
       query: searchInput,
-      count
-    }
+      count: 5
+    },
+    notifyOnNetworkStatusChange: true
   })
+
   const onFetchMore = async () => {
-    setCount((variables?.count as number) + 5)
+    if (!data?.search.edges?.length) {
+      return
+    }
+    const edges = data?.search.edges as Array<SearchResultItemEdge>
+    const cursor = edges[edges.length - 1].cursor
     await fetchMore({
       variables: {
         type: searchType,
         query: searchInput,
-        count: (variables?.count as number) + 5
+        count: variables?.count,
+        cursor
       }
     })
   }
-
   return (
     <div className={ classes.container }>
       <Container className={ classes.searchForm }>

@@ -1,20 +1,22 @@
-import { SearchByQueryQueryHookResult, SearchResultItemConnection } from '../generated/graphql'
+import { SearchResultItemConnection } from '../generated/graphql'
 
 export const cacheConfig = {
   typePolicies: {
     Query: {
       fields: {
         search: {
+          keyArgs: ['query'],
           merge(
-            existing: SearchResultItemConnection,
+            existing: SearchResultItemConnection | undefined,
             incoming: SearchResultItemConnection
           ): SearchResultItemConnection {
             return {
-              ...incoming
+              ...incoming,
+              nodes: [...(existing?.nodes || []), ...(incoming.nodes || [])]
             }
           }
         }
       }
-    },
+    }
   }
 }

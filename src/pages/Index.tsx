@@ -18,7 +18,6 @@ export default function Index() {
   const searchInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
   }, [])
-  console.log('data', data)
   return (
     <MainLayout>
       <MainContainer>
