@@ -11,6 +11,9 @@ export const getViewerRepos = gql`
           }
         }
       }
+      contributionsCollection(from: "2020-05-04T00:00:00" to: "2020-12-05T00:00:00") {
+        ...ContrInfo
+      }
     }
   }
 `

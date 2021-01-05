@@ -1,4 +1,5 @@
 import { useHistory } from 'react-router-dom'
+import { setTokeValue } from '../lib/localStorage'
 
 export const useRedirect = () => {
   const history = useHistory()
@@ -7,7 +8,18 @@ export const useRedirect = () => {
     history.push(url)
   }
 
+  const onLogout = () => {
+    setTokeValue('')
+    historyPush('/login')
+  }
+
+  const goHome = () => {
+    historyPush('/')
+  }
+
   return {
-    historyPush
+    historyPush,
+    onLogout,
+    goHome
   }
 }

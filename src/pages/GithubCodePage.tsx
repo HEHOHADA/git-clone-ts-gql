@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Link, useHistory } from 'react-router-dom'
 import { setTokeValue } from '../lib/localStorage'
@@ -7,12 +7,12 @@ import { MainLayout } from '../components/layout/MainLayout'
 import { accessTokenUrl, githubClientKeys } from '../utils/config'
 
 export const GithubCodePage = (props: RouteComponentProps) => {
-  let content
+  const content = useRef<string>('')
+  const history = useHistory()
   const code = props.location.search.split('=')[1]
   if (!code) {
-    content = 'Что-то пошло не так'
+    content.current = 'Что-то пошло не так'
   }
-  const history = useHistory()
   useEffect(() => {
     fetch(accessTokenUrl, {
       method: 'POST',
@@ -32,18 +32,17 @@ export const GithubCodePage = (props: RouteComponentProps) => {
           setTokeValue(res.access_token)
           history.push('/')
         } else {
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          content = res.error_description
+          content.current = res.error_description
         }
       })
-  }, [code])
+  }, [code, history])
 
   return (
     <MainLayout>
       { content ? (
         <DialogItem
           actions={ <Link to="/login">Повторить попытку</Link> }
-          contentText={ content }
+          contentText={ content.current }
           header={ 'Что-то пошло не так' }
         />
       ) : (

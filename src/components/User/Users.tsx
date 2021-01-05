@@ -3,7 +3,6 @@ import { ShortUser } from './ShortUser'
 import { Container } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { UserInfoFragment } from '../../generated/graphql'
-import { useHistory } from 'react-router-dom'
 import { useRedirect } from '../../hooks/useRedirect'
 
 

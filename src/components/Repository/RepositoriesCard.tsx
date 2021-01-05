@@ -19,7 +19,7 @@ export const RepositoriesCard: FC<PropsType> = ({data}) => {
         return (
           node &&
           <RepositoryCard onClick={ historyPush } { ...node as RepoInfoFragment }
-                          key={ `${ node.name }_` }/>
+                          key={ `${ node.url }_` }/>
         )
       }) }
     </Container>

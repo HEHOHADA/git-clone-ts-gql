@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 export const repoInfoFragment = gql`
   fragment RepoInfo on Repository {
     name
+    url
     openGraphImageUrl
     description
     owner {

@@ -9,6 +9,7 @@ import Index from './pages/Index'
 import { getTokenValue } from './lib/localStorage'
 import PrivateRoute from './routes/PrivateRoute'
 import { ProfilePage } from './pages/ProfilePage'
+import RepositoryPage from './pages/RepositoryPage'
 
 function App(): JSX.Element {
   const isAuth = !!getTokenValue()
@@ -19,8 +20,8 @@ function App(): JSX.Element {
         <Route exact component={ Login } path="/login"/>
         <Route exact component={ SearchPage } path="/search"/>
         <Route component={ GithubCodePage } path="/login/oauth2/code/github"/>
-        <PrivateRoute component={ProfilePage} path="/:username" isAuth={isAuth}/>
-        <PrivateRoute component={ProfilePage} path="/:username/:repo" isAuth={isAuth}/>
+        <PrivateRoute exact component={ ProfilePage } path="/:username" isAuth={ isAuth }/>
+        <PrivateRoute component={ RepositoryPage } path="/:username/:repo" isAuth={ isAuth }/>
       </Switch>
     </Router>
   )
