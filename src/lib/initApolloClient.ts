@@ -1,19 +1,13 @@
-import {
-  ApolloClient,
-  ApolloReducerConfig,
-  createHttpLink,
-  InMemoryCache,
-  NormalizedCacheObject
-} from '@apollo/client'
+import { ApolloClient, createHttpLink, InMemoryCache, NormalizedCacheObject } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import { cacheConfig } from './cache'
 import { getTokenValue } from './localStorage'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 export const GITHUB_LINK_OPTIONS = { uri: 'https://api.github.com/graphql' }
 
 function create(
-  initialState?: NormalizedCacheObject,
-  cacheConfig: ApolloReducerConfig = {}
+  initialState?: NormalizedCacheObject
 ): ApolloClient<NormalizedCacheObject> {
   const httpLink = createHttpLink(GITHUB_LINK_OPTIONS)
 
@@ -33,11 +27,10 @@ function create(
 }
 
 export default function initApollo(
-  initialState?: NormalizedCacheObject,
-  cacheConfig: ApolloReducerConfig = {}
+  initialState?: NormalizedCacheObject
 ): ApolloClient<NormalizedCacheObject> {
   if (!apolloClient) {
-    apolloClient = create(initialState, cacheConfig)
+    apolloClient = create(initialState)
   }
 
   return apolloClient

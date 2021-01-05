@@ -1,26 +1,27 @@
-import { makeStyles } from "@material-ui/core/styles";
-import React, { PropsWithChildren } from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import React, { PropsWithChildren } from 'react'
+import { Navbar } from '../shared/navbar/Navbar'
+import { makeStyles } from '@material-ui/core/styles'
+import { getTokenValue } from '../../lib/localStorage'
+import { useRedirect } from '../../hooks/useRedirect'
+
+export const MainLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
+  const classes = useStyles()
+  const {onLogout, goHome} = useRedirect()
+  const isAuth = !!getTokenValue()
+
+  return (
+    <div className={ classes.container }>
+      <Navbar goHome={ goHome } isAuth={ isAuth } onLogout={ onLogout }/>
+      <div className={ classes.childContainer }>{ children }</div>
+    </div>
+  )
+}
 
 const useStyles = makeStyles(() => ({
   container: {
-    height: "100vh",
-    background:
-      "linear-gradient(180deg, rgba(43,49,55,1) 0%, rgba(105,105,105,1) 100%)",
+    height: '100vh'
   },
-  body: {
-    margin: "auto",
-  },
-}));
-
-const MainLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const classes = useStyles();
-  document.body.className = classes.body;
-  return (
-    <div className={classes.container}>
-      <Navbar />
-      <div>{children}</div>
-    </div>
-  );
-};
-export default MainLayout;
+  childContainer: {
+    height: 'calc(100% - 64px)'
+  }
+}))

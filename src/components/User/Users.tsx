@@ -1,13 +1,32 @@
-import React from 'react'
-import { User } from '../../types/user'
-import ShortUser from './ShortUser'
-function Users({ users }: { users: Array<User> }) {
+import React, { FC } from 'react'
+import { ShortUser } from './ShortUser'
+import { Container } from '@material-ui/core'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { UserInfoFragment } from '../../generated/graphql'
+import { useRedirect } from '../../hooks/useRedirect'
+
+
+type PropsType = {
+  users: Array<UserInfoFragment>
+}
+
+export const Users: FC<PropsType> = ({users}) => {
+  const classes = useStyles()
+  const {historyPush} = useRedirect()
   return (
-    <div>
-      {users.map((user: User) => (
-        <ShortUser key={user.id} data={user} />
-      ))}
-    </div>
+    <Container className={ classes.container }>
+      { users.filter(user => user.login).map((user) => (
+        <ShortUser onClick={historyPush} key={ user.login } { ...user }/>
+      )) }
+    </Container>
   )
 }
-export default Users
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    container: {
+      flexWrap: 'wrap',
+      display: 'flex',
+    }
+  }),
+)
