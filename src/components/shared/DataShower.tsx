@@ -2,6 +2,7 @@ import React from 'react'
 import { ErrorItem } from '../ui/Error'
 import Loader from '../ui/Loader'
 import { ApolloError } from '@apollo/client'
+import { CenteredContainer } from '../ui/CenteredContainer'
 
 type PropsType<T> = {
   data: T
@@ -19,8 +20,12 @@ export const DataShower = <T extends GenericType>({
                                                   }: PropsType<T>) => {
   return (
     <>
-      { data ? DataComponent : loading ? <Loader/> : error ? <ErrorItem
-        error={ error.toString() }/> : null }
+      { data ? DataComponent : loading ?
+        <CenteredContainer>
+          <Loader/>
+        </CenteredContainer> : error ?
+          <ErrorItem
+            error={ error.toString() }/> : null }
     </>
   )
 }

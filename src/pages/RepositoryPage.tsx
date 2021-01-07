@@ -27,7 +27,6 @@ export default function RepositoryPage() {
     }
   })
   const {goHome} = useRedirect()
-  console.log(data)
   const content = !data?.repository?.object ||
   data?.repository?.object?.__typename !== 'Tree' ||
   !data.repository.object.entries?.length ?

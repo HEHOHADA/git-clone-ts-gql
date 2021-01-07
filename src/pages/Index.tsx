@@ -44,9 +44,14 @@ export default function Index() {
                         search={ search }
                         repositories={ repositories as Array<RepositoryEdge> }/> }/>
         </SideBarContainer>
-        <ContributionList
-          data={ data?.viewer.contributionsCollection as ContributionsCollection }
-          keys={ contributions }/>
+        <DataShower
+          error={ error }
+          loading={ loading }
+          data={ data?.viewer.contributionsCollection }
+          DataComponent={ <ContributionList
+            data={ data?.viewer.contributionsCollection as ContributionsCollection }
+            keys={ contributions }/> }/>
+
       </MainContainer>
     </MainLayout>
   )

@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button, MenuItem, Select } from '@material-ui/core'
 import {
   RepoInfoFragment,
+  SearchResultItemEdge,
   SearchType,
   UserInfoFragment,
   useSearchByQueryQuery
@@ -35,16 +36,22 @@ export const SearchForm: FC<PropsType> = ({search}) => {
       count: 5
     }
   })
+
   const onFetchMore = async () => {
+    if (!data?.search.edges?.length) {
+      return
+    }
+    const edges = data?.search.edges as Array<SearchResultItemEdge>
+    const cursor = edges[edges.length - 1].cursor
     await fetchMore({
       variables: {
         type: searchType,
         query: searchInput,
-        count: variables?.count
+        count: variables?.count,
+        cursor
       }
     })
   }
-
   return (
     <Box className={ classes.container }>
       <CenteredContainer>
@@ -66,7 +73,8 @@ export const SearchForm: FC<PropsType> = ({search}) => {
             <RepositorySearchResult data={ data?.search.nodes as Array<RepoInfoFragment> }/> :
             <Users users={ data?.search.nodes as Array<UserInfoFragment> }/>
         } loading={ loading } error={ error }/> }
-        <Button onClick={ onFetchMore }>Load more...</Button>
+        { data?.search?.edges?.length !== 0 &&
+        <Button disabled={ loading } onClick={ onFetchMore }>Load more...</Button> }
       </CenteredContainer>
     </Box>
   )

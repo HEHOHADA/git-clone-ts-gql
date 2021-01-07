@@ -19709,6 +19709,7 @@ export type SearchByQueryQueryVariables = Exact<{
   count: Scalars['Int'];
   type: SearchType;
   query: Scalars['String'];
+  cursor?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -19722,6 +19723,9 @@ export type SearchByQueryQuery = (
     ) | (
       { __typename?: 'User' }
       & UserInfoFragment
+    )>>>, edges?: Maybe<Array<Maybe<(
+      { __typename?: 'SearchResultItemEdge' }
+      & Pick<SearchResultItemEdge, 'cursor'>
     )>>> }
   ) }
 );
@@ -19954,11 +19958,14 @@ export type GetViewerReposQueryHookResult = ReturnType<typeof useGetViewerReposQ
 export type GetViewerReposLazyQueryHookResult = ReturnType<typeof useGetViewerReposLazyQuery>;
 export type GetViewerReposQueryResult = Apollo.QueryResult<GetViewerReposQuery, GetViewerReposQueryVariables>;
 export const SearchByQueryDocument = gql`
-    query SearchByQuery($count: Int!, $type: SearchType!, $query: String!) {
-  search(first: $count, type: $type, query: $query) {
+    query SearchByQuery($count: Int!, $type: SearchType!, $query: String!, $cursor: String) {
+  search(first: $count, type: $type, query: $query, after: $cursor) {
     nodes {
       ...RepoInfo
       ...UserInfo
+    }
+    edges {
+      cursor
     }
   }
 }
@@ -19980,6 +19987,7 @@ ${UserInfoFragmentDoc}`;
  *      count: // value for 'count'
  *      type: // value for 'type'
  *      query: // value for 'query'
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */
