@@ -1,9 +1,11 @@
 import React, { FC } from 'react'
+import { Header } from './Header'
 
 export const ErrorItem: FC<{ error: string }> = ({error}) => {
   return (
-    <h2>
-      { JSON.stringify(error) },please wait
-    </h2>
+    <Header
+      size={ 'large' }
+      title={ `${ JSON.stringify(error) },please wait` }/>
+
   )
 }

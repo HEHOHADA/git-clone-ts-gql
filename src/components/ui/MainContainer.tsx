@@ -3,7 +3,7 @@ import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 type PropsType = {
-  children: JSX.Element
+  children: NonNullable<React.ReactNode>
 }
 
 export const MainContainer: FC<PropsType> = ({children}) => {

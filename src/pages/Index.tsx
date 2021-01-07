@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import { MainLayout } from '../components/layout/MainLayout'
-import { IconButton } from '@material-ui/core'
+import { Box, IconButton, Typography } from '@material-ui/core'
 import { Search } from '../components/shared/Search'
 import { makeStyles } from '@material-ui/core/styles'
 import { LibraryAdd } from '@material-ui/icons'
@@ -14,7 +14,7 @@ import { SideBarContainer } from '../components/ui/SideBarContainer'
 import { MainContainer } from '../components/ui/MainContainer'
 import { DataShower } from '../components/shared/DataShower'
 import { ContributionList } from '../components/index/ContributionList'
-import { ContributionKeys } from '../types/contribution'
+import { ContributionKeys } from '../types'
 
 export default function Index() {
   const classes = useStyles()
@@ -29,26 +29,24 @@ export default function Index() {
   return (
     <MainLayout>
       <MainContainer>
-        <>
-          <SideBarContainer>
-            <div className={ classes.centeredContainer }>
-              <span>Repositories</span>
-              <IconButton color="inherit">
-                <LibraryAdd/>
-              </IconButton>
-            </div>
-            <Search placeholder={ 'Поиск репозитория' } onChange={ searchInputChange }/>
-            <DataShower error={ error }
-                        loading={ loading }
-                        data={ repositories }
-                        DataComponent={ <Repositories
-                          search={ search }
-                          repositories={ repositories as Array<RepositoryEdge> }/> }/>
-          </SideBarContainer>
-          <ContributionList
-            data={ data?.viewer.contributionsCollection as ContributionsCollection }
-                            keys={ contributions }/>
-        </>
+        <SideBarContainer>
+          <Box className={ classes.centeredContainer }>
+            <Typography variant="subtitle2">Repositories</Typography>
+            <IconButton color="inherit">
+              <LibraryAdd/>
+            </IconButton>
+          </Box>
+          <Search placeholder={ 'Поиск репозитория' } onChange={ searchInputChange }/>
+          <DataShower error={ error }
+                      loading={ loading }
+                      data={ repositories }
+                      DataComponent={ <Repositories
+                        search={ search }
+                        repositories={ repositories as Array<RepositoryEdge> }/> }/>
+        </SideBarContainer>
+        <ContributionList
+          data={ data?.viewer.contributionsCollection as ContributionsCollection }
+          keys={ contributions }/>
       </MainContainer>
     </MainLayout>
   )

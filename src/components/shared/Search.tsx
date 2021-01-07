@@ -3,6 +3,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
 import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
+import { Box } from '@material-ui/core'
 type PropsType = {
   placeholder?: string,
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
@@ -25,10 +26,10 @@ export const Search: FC<PropsType> = ({placeholder = 'Search...', onChange}) => 
     onChange: (event: ChangeEvent<HTMLInputElement>) => setSearchInput(event.target.value)
   }
   return (
-    <div className={ classes.search }>
-      <div className={ classes.searchIcon }>
+    <Box className={ classes.search }>
+      <Box className={ classes.searchIcon }>
         <SearchIcon/>
-      </div>
+      </Box>
       <InputBase
         { ...possibleProps }
         placeholder={ placeholder }
@@ -38,7 +39,7 @@ export const Search: FC<PropsType> = ({placeholder = 'Search...', onChange}) => 
         } }
         inputProps={ {'aria-label': 'search'} }
       />
-    </div>)
+    </Box>)
 }
 
 const useClasses = makeStyles((theme: Theme) =>

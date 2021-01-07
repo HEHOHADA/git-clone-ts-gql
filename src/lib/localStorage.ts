@@ -1,4 +1,4 @@
-import { tokenKeyName } from '../utils/config'
+import { tokenKeyName } from '../utils'
 
 export function setTokeValue(value = '') {
   localStorage.setItem(tokenKeyName, value)

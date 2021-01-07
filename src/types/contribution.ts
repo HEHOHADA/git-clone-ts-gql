@@ -20,6 +20,7 @@ export type ContributionItemType =
   | CreatedIssueContribution
   | CreatedPullRequestContribution
   | CreatedPullRequestReviewContribution
+
 export type ContributionKeys = 'commitContributionsByRepository'
   | 'issueContributionsByRepository'
   | 'pullRequestContributionsByRepository'

@@ -1,12 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { ContributionItem } from './ContributionItem'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ContributionsCollection } from '../../generated/graphql'
-import { ContributionItemType, ContributionKeys, ContributionType } from '../../types/contribution'
-import { useMemo } from 'react'
-import { ContributionToText } from '../../utils/splitText'
-import { transformDate } from '../../utils/dateTransform'
+import { ContributionItemType, ContributionKeys, ContributionType } from '../../types'
+import { ContributionToText, transformDate } from '../../utils'
 
 type PropsType<T> = {
   data: ContributionsCollection

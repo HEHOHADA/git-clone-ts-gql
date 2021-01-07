@@ -5,7 +5,7 @@ import { ApolloError } from '@apollo/client'
 
 type PropsType<T> = {
   data: T
-  DataComponent: JSX.Element
+  DataComponent: JSX.Element | NonNullable<React.ReactNode>
   loading: boolean
   error?: ApolloError
 }

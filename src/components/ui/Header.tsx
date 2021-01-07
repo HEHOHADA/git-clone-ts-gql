@@ -4,16 +4,17 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 type PropsType = {
   size: 'large' | 'small'
-  title: string
+  title: string | JSX.Element
   styles?: {}
   children?: never
+  className?: string
 }
 
-export const Header: FC<PropsType> = ({size, title, styles}) => {
+export const Header: FC<PropsType> = ({size, className, title, styles}) => {
   const classes = useStyles({size})
   return (
     <Typography
-      className={ classes.header }
+      className={ `${ classes.header } ${ className }` }
       style={ {...styles} }
       variant={ size === 'large' ? 'h1' : 'h3' }>
       { title }

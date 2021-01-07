@@ -19645,6 +19645,7 @@ export type GetRepoQuery = (
   { __typename?: 'Query' }
   & { repository?: Maybe<(
     { __typename?: 'Repository' }
+    & Pick<Repository, 'forkCount'>
     & { object?: Maybe<{ __typename?: 'Blob' } | { __typename?: 'Commit' } | { __typename?: 'Tag' } | (
       { __typename?: 'Tree' }
       & { entries?: Maybe<Array<(
@@ -19827,6 +19828,7 @@ export const GetRepoDocument = gql`
     query GetRepo($owner: String!, $name: String!) {
   repository(owner: $owner, name: $name) {
     ...RepoInfo
+    forkCount
     object(expression: "master:") {
       ... on Tree {
         entries {

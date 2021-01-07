@@ -27,6 +27,7 @@ export default function RepositoryPage() {
     }
   })
   const {goHome} = useRedirect()
+  console.log(data)
   const content = !data?.repository?.object ||
   data?.repository?.object?.__typename !== 'Tree' ||
   !data.repository.object.entries?.length ?
@@ -43,6 +44,7 @@ export default function RepositoryPage() {
       }
       />
     )
+
   return (
     <MainLayout>
       <MainContainer>
@@ -52,6 +54,8 @@ export default function RepositoryPage() {
               data={ data?.repository }
               DataComponent={ (
                 <HeaderInfo
+                  forkCount={ data?.repository?.forkCount }
+                  stars={ data?.repository?.stargazers.totalCount }
                   description={ data?.repository?.description as string }
                   name={ data?.repository?.name as string }
                   login={ data?.repository?.owner.login as string }/>

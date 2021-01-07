@@ -12,6 +12,7 @@ import { DataShower } from '../shared/DataShower'
 import { Users } from '../User/Users'
 import { RepositorySearchResult } from './RepositorySearchResult'
 import { CenteredContainer } from '../ui/CenteredContainer'
+import { Header } from '../ui/Header'
 
 type PropsType = {
   search: string
@@ -45,9 +46,9 @@ export const SearchForm: FC<PropsType> = ({search}) => {
   }
 
   return (
-    <div className={ classes.container }>
+    <Box className={ classes.container }>
       <CenteredContainer>
-        <h1 className={ classes.title }>SEARCH</h1>
+        <Header size={ 'large' } title={ 'SEARCH' }/>
         <Box>
           <OutlinedInput
             className={ classes.input }
@@ -67,7 +68,7 @@ export const SearchForm: FC<PropsType> = ({search}) => {
         } loading={ loading } error={ error }/> }
         <Button onClick={ onFetchMore }>Load more...</Button>
       </CenteredContainer>
-    </div>
+    </Box>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { ShortRepository } from './ShortRepository'
 import { RepositoryEdge } from '../../generated/graphql'
+import { Box } from '@material-ui/core'
 
 type PropsType = {
   repositories: Array<RepositoryEdge>
@@ -16,13 +17,13 @@ export const Repositories: FC<PropsType> = ({repositories, search}) => {
   }, [search, repositories])
 
   return (
-    <div>
+    <Box>
       { searchRepos.map((repository) => {
           return repository.node ?
             <ShortRepository key={ repository.node.name } data={ repository.node }/> :
             null
         }
       ) }
-    </div>
+    </Box>
   )
 }
