@@ -1,10 +1,16 @@
 import React from 'react'
 import { MainLayout } from '../components/layout/MainLayout'
 import { useParams } from 'react-router-dom'
-import { useGetRepoQuery } from '../generated/graphql'
+import { TreeEntry, useGetRepoQuery } from '../generated/graphql'
 import { MainContainer } from '../components/ui/MainContainer'
 import { makeStyles } from '@material-ui/core/styles'
-import fileIcon from '../static/blank-file.png'
+import { Box, Button } from '@material-ui/core'
+import { DataShower } from '../components/shared/DataShower'
+import { CenteredContainer } from '../components/ui/CenteredContainer'
+import { Header } from '../components/ui/Header'
+import { HeaderInfo } from '../components/Repository/HeaderInfo'
+import { TableRepo } from '../components/Repository/TableRepo'
+import { useRedirect } from '../hooks/useRedirect'
 
 type ParamsType = {
   repo: string
@@ -14,81 +20,65 @@ type ParamsType = {
 export default function RepositoryPage() {
   const classes = useStyles()
   const params = useParams<ParamsType>()
-  const {data} = useGetRepoQuery({
+  const {data, loading, error} = useGetRepoQuery({
     variables: {
       name: params.repo,
       owner: params.username
     }
   })
-  console.log(data)
+  const {goHome} = useRedirect()
+  const content = !data?.repository?.object ||
+  data?.repository?.object?.__typename !== 'Tree' ||
+  !data.repository.object.entries?.length ?
+    (
+      <>
+        <Header title={ 'No MASTER or something wrong' } size={ 'large' }/>
+        <Button
+          variant="contained" color="primary"
+          className={ classes.btn }
+          onClick={ goHome }>Back</Button>
+      </>
+    ) : (
+      <TableRepo data={ data?.repository.object.entries as Array<TreeEntry>
+      }
+      />
+    )
   return (
     <MainLayout>
       <MainContainer>
-        <div>
-      <div className={ classes.description }>
-        <h1>Repo name</h1>
-        <h3>Repo owner: </h3>
-        <h3>Contributors: </h3>
-      </div>
-
-            <hr/>
-            <table>
-                <tr>
-                    <td><img src={ fileIcon } className={ classes.icon } alt="File Icon"/></td>
-                    <td>File name</td>
-                </tr>
-            </table>
-            <hr/>
-
-            <div className={ classes.contributionsSection }>
-                <div className={ classes.contributions }>
-                    <div className={classes.contribution}>
-                        <h3 className={classes.contributionName}>contrib name</h3>
-                        <span className={classes.contributionName}>who</span>
-                        <span>contrib date</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <CenteredContainer>
+          <Box className={ classes.description }>
+            <DataShower
+              data={ data?.repository }
+              DataComponent={ (
+                <HeaderInfo
+                  description={ data?.repository?.description as string }
+                  name={ data?.repository?.name as string }
+                  login={ data?.repository?.owner.login as string }/>
+              ) } loading={ loading } error={ error }/>
+          </Box>
+          <DataShower
+            data={ data?.repository }
+            DataComponent={ content } loading={ loading } error={ error }/>
+        </CenteredContainer>
       </MainContainer>
     </MainLayout>
   )
 }
 
 const useStyles = makeStyles(() => ({
-centeredContainer: {
+  centeredContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around',
-},
-description: {
-  marginBottom: '30px'
-},
-contributionsSection: {
-    width: '100%',
-},
-contribCount: {
-    textAlign: 'center',
-},
-contributions: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gridGap: '10px',
-    padding: '30px 0',
-},
-contribution: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '15px 10px',
-    boxShadow: '0 5px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-    borderRadius: '10px',
-},
-contributionName: {
-    marginRight: '10px',
-},
-icon: {
-    width: '20px',
   },
+  description: {
+    marginBottom: '1rem',
+    display: 'flex',
+    alignItems: 'start'
+  },
+  btn: {
+    marginTop: '0.5rem',
+  }
 }))
 

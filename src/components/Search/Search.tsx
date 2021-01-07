@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, useState } from 'react'
-import Container from '@material-ui/core/Container'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button, MenuItem, Select } from '@material-ui/core'
@@ -12,6 +11,7 @@ import {
 import { DataShower } from '../shared/DataShower'
 import { Users } from '../User/Users'
 import { RepositorySearchResult } from './RepositorySearchResult'
+import { CenteredContainer } from '../ui/CenteredContainer'
 
 type PropsType = {
   search: string
@@ -27,28 +27,26 @@ export const SearchForm: FC<PropsType> = ({search}) => {
   const setUserInput = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value)
   }
-  const [count, setCount] = useState(5)
   const {data, error, loading, variables, fetchMore} = useSearchByQueryQuery({
     variables: {
       type: searchType,
       query: searchInput,
-      count
+      count: 5
     }
   })
   const onFetchMore = async () => {
-    setCount((variables?.count as number) + 5)
     await fetchMore({
       variables: {
         type: searchType,
         query: searchInput,
-        count: (variables?.count as number) + 5
+        count: variables?.count
       }
     })
   }
 
   return (
     <div className={ classes.container }>
-      <Container className={ classes.searchForm }>
+      <CenteredContainer>
         <h1 className={ classes.title }>SEARCH</h1>
         <Box>
           <OutlinedInput
@@ -68,7 +66,7 @@ export const SearchForm: FC<PropsType> = ({search}) => {
             <Users users={ data?.search.nodes as Array<UserInfoFragment> }/>
         } loading={ loading } error={ error }/> }
         <Button onClick={ onFetchMore }>Load more...</Button>
-      </Container>
+      </CenteredContainer>
     </div>
   )
 }
@@ -85,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       minWidth: 120
     },
-    searchForm: {
+    center: {
       padding: '1%',
       width: '80vw',
       borderRadius: '15px',

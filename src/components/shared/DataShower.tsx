@@ -1,18 +1,26 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { ErrorItem } from '../ui/Error'
 import Loader from '../ui/Loader'
+import { ApolloError } from '@apollo/client'
 
-type PropsType = {
-  data: any
+type PropsType<T> = {
+  data: T
   DataComponent: JSX.Element
   loading: boolean
-  error: any
+  error?: ApolloError
 }
+type GenericType = ({} | null | undefined)
 
-export const DataShower: FC<PropsType> = ({data, DataComponent, loading, error}) => {
+export const DataShower = <T extends GenericType>({
+                                                    data,
+                                                    DataComponent,
+                                                    loading,
+                                                    error
+                                                  }: PropsType<T>) => {
   return (
     <>
-      { data ? DataComponent : loading ? <Loader/> : error ? <ErrorItem error={ error }/> : null }
+      { data ? DataComponent : loading ? <Loader/> : error ? <ErrorItem
+        error={ error.toString() }/> : null }
     </>
   )
 }

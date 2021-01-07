@@ -1,4 +1,4 @@
-import { SearchByQueryQueryHookResult, SearchResultItemConnection } from '../generated/graphql'
+import { SearchResultItemConnection } from '../generated/graphql'
 
 export const cacheConfig = {
   typePolicies: {

@@ -19649,7 +19649,7 @@ export type GetRepoQuery = (
       { __typename?: 'Tree' }
       & { entries?: Maybe<Array<(
         { __typename?: 'TreeEntry' }
-        & Pick<TreeEntry, 'oid' | 'name'>
+        & Pick<TreeEntry, 'oid' | 'extension' | 'name'>
       )>> }
     )> }
     & RepoInfoFragment
@@ -19831,6 +19831,7 @@ export const GetRepoDocument = gql`
       ... on Tree {
         entries {
           oid
+          extension
           name
         }
       }

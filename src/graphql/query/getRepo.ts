@@ -8,6 +8,7 @@ export const getRepoQuery = gql`
         ... on Tree {
           entries {
             oid
+            extension
             name
           }
         }
