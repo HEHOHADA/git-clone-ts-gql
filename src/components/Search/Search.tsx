@@ -1,5 +1,4 @@
 import React, { ChangeEvent, FC, useState } from 'react'
-import Container from '@material-ui/core/Container'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Box, Button, MenuItem, Select } from '@material-ui/core'
@@ -13,6 +12,8 @@ import {
 import { DataShower } from '../shared/DataShower'
 import { Users } from '../User/Users'
 import { RepositorySearchResult } from './RepositorySearchResult'
+import { CenteredContainer } from '../ui/CenteredContainer'
+import { Header } from '../ui/Header'
 
 type PropsType = {
   search: string
@@ -28,13 +29,12 @@ export const SearchForm: FC<PropsType> = ({search}) => {
   const setUserInput = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value)
   }
-  const {data, error, loading, variables, refetch, fetchMore} = useSearchByQueryQuery({
+  const {data, error, loading, variables, fetchMore} = useSearchByQueryQuery({
     variables: {
       type: searchType,
       query: searchInput,
       count: 5
-    },
-    notifyOnNetworkStatusChange: true
+    }
   })
 
   const onFetchMore = async () => {
@@ -53,9 +53,9 @@ export const SearchForm: FC<PropsType> = ({search}) => {
     })
   }
   return (
-    <div className={ classes.container }>
-      <Container className={ classes.searchForm }>
-        <h1 className={ classes.title }>SEARCH</h1>
+    <Box className={ classes.container }>
+      <CenteredContainer>
+        <Header size={ 'large' } title={ 'SEARCH' }/>
         <Box>
           <OutlinedInput
             className={ classes.input }
@@ -73,9 +73,10 @@ export const SearchForm: FC<PropsType> = ({search}) => {
             <RepositorySearchResult data={ data?.search.nodes as Array<RepoInfoFragment> }/> :
             <Users users={ data?.search.nodes as Array<UserInfoFragment> }/>
         } loading={ loading } error={ error }/> }
-        <Button onClick={ onFetchMore }>Load more...</Button>
-      </Container>
-    </div>
+        { data?.search?.edges?.length !== 0 &&
+        <Button disabled={ loading } onClick={ onFetchMore }>Load more...</Button> }
+      </CenteredContainer>
+    </Box>
   )
 }
 
@@ -91,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1),
       minWidth: 120
     },
-    searchForm: {
+    center: {
       padding: '1%',
       width: '80vw',
       borderRadius: '15px',

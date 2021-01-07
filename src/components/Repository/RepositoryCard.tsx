@@ -22,7 +22,7 @@ export const RepositoryCard: FC<PropsType> = ({
   const classes = useStyles({size})
   return (
     <Card className={ classes.root }>
-      <div className={ classes.cover }>
+      <Box className={ classes.cover }>
         <CardContent className={ classes.content }
                      onClick={ () => onClick(`/${ owner?.login }/${ name }`) }>
           <Typography component="h5" variant="h5">
@@ -41,7 +41,7 @@ export const RepositoryCard: FC<PropsType> = ({
             { stargazers?.totalCount }
           </Typography>
         </Box>
-      </div>
+      </Box>
     </Card>
   )
 }

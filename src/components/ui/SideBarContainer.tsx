@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
 
 type PropsType = {
   width?: number
@@ -8,9 +9,9 @@ type PropsType = {
 export const SideBarContainer: FC<PropsType> = ({children, width = 20}) => {
   const classes = useStyles({width})
   return (
-    <div className={ classes.sideBarContainer }>
+    <Box className={ classes.sideBarContainer }>
       { children }
-    </div>
+    </Box>
   )
 }
 const useStyles = makeStyles(() => ({

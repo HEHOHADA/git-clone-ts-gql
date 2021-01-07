@@ -6,12 +6,9 @@ import Typography from '@material-ui/core/Typography'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MailIcon from '@material-ui/icons/Mail'
-import NotificationsIcon from '@material-ui/icons/Notifications'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import github from '../../../static/github.png'
 import { Search } from '../Search'
-import Badge from '@material-ui/core/Badge'
 import { AppBar } from '@material-ui/core'
 
 type PropsType = {
@@ -71,22 +68,6 @@ export const Navbar: FC<PropsType> = ({goHome, onLogout}) => {
       open={ isMobileMenuOpen }
       onClose={ handleMobileMenuClose }
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={ 4 } color="secondary">
-            <MailIcon/>
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={ 11 } color="secondary">
-            <NotificationsIcon/>
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={ handleProfileMenuOpen }>
         <IconButton
           aria-label="account of current user"

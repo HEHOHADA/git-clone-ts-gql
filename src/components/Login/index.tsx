@@ -1,7 +1,8 @@
 import React from 'react'
 import { Container, Grid, Link, makeStyles } from '@material-ui/core'
 import GitHubIcon from '@material-ui/icons/GitHub'
-import { githubClientKeys } from '../../utils/config'
+import { githubClientKeys } from '../../utils'
+import { Header } from '../ui/Header'
 
 export const LoginItem = () => {
   const classes = useStyles()
@@ -12,9 +13,8 @@ export const LoginItem = () => {
         <Link
           href={ `https://github.com/login/oauth/authorize?client_id=${ clientId }` }
         >
-          <h3 className={ classes.loginForm }>
-            Sign in with GitHub <GitHubIcon/>
-          </h3>
+          <Header size={ 'small' } className={ classes.loginForm }
+                  title={ <>Sign in with GitHub <GitHubIcon/></> }/>
         </Link>
       </Grid>
     </Container>

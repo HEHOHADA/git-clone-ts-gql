@@ -18,17 +18,15 @@ export function ProfilePage() {
   return (
     <MainLayout>
       <MainContainer>
-        <>
-          <SideBarContainer width={ 25 }>
-            <ProfileItem
-              bio={ data?.user?.bio }
-              url={ data?.user?.avatarUrl }
-              name={ data?.user?.login as string }/>
-          </SideBarContainer>
-          <DataShower data={ data?.user?.repositories.edges } DataComponent={
-            <RepositoriesCard data={ data?.user?.repositories.edges as Array<RepositoryEdge> }/>
-          } loading={ loading } error={ error }/>
-        </>
+        <SideBarContainer width={ 25 }>
+          <ProfileItem
+            bio={ data?.user?.bio }
+            url={ data?.user?.avatarUrl }
+            name={ data?.user?.login as string }/>
+        </SideBarContainer>
+        <DataShower data={ data?.user?.repositories.edges } DataComponent={
+          <RepositoriesCard data={ data?.user?.repositories.edges as Array<RepositoryEdge> }/>
+        } loading={ loading } error={ error }/>
       </MainContainer>
     </MainLayout>
   )

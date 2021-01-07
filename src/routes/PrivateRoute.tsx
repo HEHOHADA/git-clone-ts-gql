@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 
 interface PrivateRouteProps extends RouteProps {
-  component: any
+  component: React.ComponentType<RouteProps>
   isAuth: boolean
 }
 

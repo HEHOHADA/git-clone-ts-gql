@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardMedia, makeStyles } from '@material-ui/core'
+import { Box, Card, CardContent, CardMedia, makeStyles } from '@material-ui/core'
 import { UserInfoFragment } from '../../generated/graphql'
 import Typography from '@material-ui/core/Typography'
 
@@ -11,7 +11,7 @@ export const ShortUser: React.FC<UserProps> = ({avatarUrl, onClick, login, bio})
   const classes = useStyles()
   return (
     <Card className={ classes.container }>
-      <div className={ classes.cover }>
+      <Box className={ classes.cover }>
         <CardMedia
           className={ classes.avatar }
           image={ avatarUrl }
@@ -25,7 +25,7 @@ export const ShortUser: React.FC<UserProps> = ({avatarUrl, onClick, login, bio})
             { bio }
           </Typography>
         </CardContent>
-      </div>
+      </Box>
     </Card>
   )
 }

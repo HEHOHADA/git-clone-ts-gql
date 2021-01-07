@@ -4,7 +4,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { setTokeValue } from '../lib/localStorage'
 import { DialogItem } from '../components/shared/Dialog'
 import { MainLayout } from '../components/layout/MainLayout'
-import { accessTokenUrl, githubClientKeys } from '../utils/config'
+import { accessTokenUrl, githubClientKeys } from '../utils'
+import { Header } from '../components/ui/Header'
 
 export const GithubCodePage = (props: RouteComponentProps) => {
   const content = useRef<string>('')
@@ -46,7 +47,7 @@ export const GithubCodePage = (props: RouteComponentProps) => {
           header={ 'Что-то пошло не так' }
         />
       ) : (
-        <h1>Вы успешно вошли в систему</h1>
+        <Header title="Вы успешно вошли в систему" size={ 'large' }/>
       ) }
     </MainLayout>
   )
